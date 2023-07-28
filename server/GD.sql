@@ -4,7 +4,7 @@ DO NOT RUN. the schema has incomplete restraints and contains some errors.
 I will add tables individually for now
 */
 
-
+---CURRENTLY IMPLEMENTED TABLES
 CREATE TABLE player (
     player_id BIGSERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
@@ -13,6 +13,8 @@ CREATE TABLE player (
     registration_date DATE DEFAULT CURRENT_DATE
 );
 
+
+--NOT YET IMPLEMENTED
 CREATE TABLE game (
     game_id BIGSERIAL PRIMARY KEY,
     game_name VARCHAR(100),
