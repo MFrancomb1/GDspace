@@ -16,6 +16,7 @@ In addition, this app is using the following libraries/frameworks:
 - [node-postgres](https://github.com/brianc/node-postgres)
 - [cors](https://github.com/expressjs/cors)
 - [dotenv](https://github.com/motdotla/dotenv)
+- bootstrap
 - tbc...
 
 ---
