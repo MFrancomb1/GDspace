@@ -11,10 +11,11 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json());
 
-//ROUTES//
+
+//** API ENDPOINTS **//
 
 //Create User
-app.post("/register", async(req, res) => {
+app.post("/api/addPlayer", async(req, res) => {
     //TODO: validate incoming username and email. Hash password.
     try {
         const {username, email, password} = req.body;
@@ -31,7 +32,7 @@ app.post("/register", async(req, res) => {
 });
 
 //get user
-app.get("/players/:playerid", async(req, res) => {
+app.get("/api/getPlayer/:playerid", async(req, res) => {
     try {
         const { playerid } = req.params.playerid;
         const allPlayers = await pool.query(
@@ -45,7 +46,7 @@ app.get("/players/:playerid", async(req, res) => {
 })
 
 //update user
-app.put("/players/:playerid", async(req, res) => {
+app.put("/api/updatePlayer/:playerid", async(req, res) => {
     try {
         const { playerid } = req.params.playerid;
         const {email} = req.body
@@ -62,7 +63,7 @@ app.put("/players/:playerid", async(req, res) => {
 });
 
 //delete user
-app.delete("/players/:playerid", async (req, res) => {
+app.delete("/api/deletePlayer/:playerid", async (req, res) => {
     try {
         const {playerid} = req.params;
         console.log(playerid);
@@ -78,11 +79,16 @@ app.delete("/players/:playerid", async (req, res) => {
     }
 });
 
-//login
+//** SERVE STATIC REACT APP **//
 
-app.get('/', (req, res) => {
-    res.json({message: "Hello World", port: port});
-});
+//serve static files from React app
+//app.use(express.static(path.join(__dirname, '../client/dist')))
+//serve the main index.html file for any routes requested,
+//react-router-dom will handle client side routing
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '..', 'client', 'dist'));
+// })
+
 
 app.listen(port, () => {
     console.log(`Now listening on port ${port}.`)
