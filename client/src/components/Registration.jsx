@@ -20,7 +20,7 @@ const Registration = () => {
         try {
             const body = player;
             console.log(body);
-            const response = await fetch("http://localhost:8000/api/addPlayer", {  //TODO: Move this address somewhere it isnt hardcoded.
+            const response = await fetch("http://localhost:8000/api/addPlayer", { //TODO: Rename to "/api/addPlayer" in production build
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)

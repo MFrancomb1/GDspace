@@ -2,7 +2,9 @@ const express = require("express");
 const cors = require("cors");
 require('dotenv').config() //.env variables accessed via process.env.KEY
 const pool = require('./db');
+const bcrypt = require('bcrypt');
 
+const saltRounds = 12;
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -19,9 +21,12 @@ app.post("/api/addPlayer", async(req, res) => {
     //TODO: validate incoming username and email. Hash password.
     try {
         const {username, email, password} = req.body;
+
+        const hashedPass = await bcrypt.hash(password, saltRounds);
+        console.log(hashedPass);
         const newPlayer = await pool.query(
             'INSERT INTO player (username, email, password) VALUES ($1, $2, $3) RETURNING *;',
-            [username, email, password]
+            [username, email, hashedPass]
             );
 
         res.json(newPlayer.rows[0]);
