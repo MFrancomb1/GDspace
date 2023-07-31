@@ -84,6 +84,21 @@ app.delete("/api/deletePlayer/:playerid", async (req, res) => {
     }
 });
 
+//login
+app.get("/api/login/:playerid/:pass", async (req, res) => {
+    try {
+        const { playerid, pass } = req.params;
+        const hashToMatch = await pool.query(
+            "SELECT password FROM player WHERE player_id=$1",
+            [playerid]
+        );
+        const isValid = await bcrypt.compare(pass, hashToMatch.rows[0].password);
+        res.json(isValid);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
 //** SERVE STATIC REACT APP **//
 
 //serve static files from React app
