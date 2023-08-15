@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 
-const Registration = () => {
+const RegistrationModal = () => {
     const [player, setPlayer] = useState({
         username: "",
         email: "",
@@ -15,7 +15,7 @@ const Registration = () => {
         }));
       };
 
-    const handleSubmitForm = async (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
         try {
             const body = player;
@@ -37,10 +37,9 @@ const Registration = () => {
                 <div className='modal-content rounded-4 shadow'>
                     <div className='modal-header p-5 pb-4 border-bottom-0'>
                         <h1 className='fw-bold mb-0 fs-2'>Register</h1>
-                        <button className='btn-close' type='button' data-bs-dismiss='modal' aria-label='Close'></button>
                     </div>
                     <div className='modal-body p-5 pt-0'>
-                        <form className='' onSubmit={handleSubmitForm}>
+                        <form className='' onSubmit={handleRegister}>
                             <div className='form-floating mb-3'>
                                 <input id='floatingUsername' type='text' name='username' className='form-control' value={player.username} onChange={handleChange}></input>
                                 <label htmlFor='floatingUserName'>Username</label>
@@ -63,4 +62,4 @@ const Registration = () => {
 
 };
 
-export default Registration;
+export default RegistrationModal;
