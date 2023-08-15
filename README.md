@@ -1,7 +1,6 @@
 # GDspace
 Board game inspired web app type thing.
 (Work in progress)
-
 ---
 
 ### Dependencies:
@@ -24,12 +23,32 @@ In addition, this app is using the following libraries/frameworks:
 ---
 ### TODO:
 ##### SERVER:
-- [ ] Players
+- [ ] Player API endpoints
+    - [x] create player
+    - [x] Login
+    - [x] password hashing
     - [ ] Auth
+    - [x] read player
+    - [x] update player
+    - [x] delete player
 - [ ] Games
 - [ ] Maps
 ##### CLIENT:
 - [ ] Login
-- [ ] Registration
+    - [x] get api endpoint working
+    - [x] bcrypt check login attempt
+    - [x] client fetch request
+    - [ ] authentication (JWT/Session)?
+    - [ ] protected routes for logged in users
+
+- [x] Registration
+    - [ ] automatic login on successful registration
+    - [ ] rate limiting?
+          
 - [ ] Player Page
+    - [ ] basic user info lookup
+    - [ ] logged in user dashboard (protected route)
+        - [ ] update player info (name, password, etc.)
+        - [ ] delete account
+               
 - [ ] Many more very ambitious features.
