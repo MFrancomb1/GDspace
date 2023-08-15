@@ -36,15 +36,35 @@ app.post("/api/addPlayer", async(req, res) => {
     }
 });
 
+//login
+app.post("/api/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        console.log("logging in user: "+username);
+        const hashToMatch = await pool.query(
+            "SELECT password FROM player WHERE username=$1",
+            [username]
+        );
+        const isValid = await bcrypt.compare(password, hashToMatch.rows[0].password);
+        const loggedOn = isValid ? "login successful" : "login failed";
+        console.log(loggedOn);
+        res.json(isValid);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
 //get user
 app.get("/api/getPlayer/:playerid", async(req, res) => {
     try {
-        const { playerid } = req.params.playerid;
+        const { playerid } = req.params;
+        console.log(playerid);
         const allPlayers = await pool.query(
             "SELECT * FROM player WHERE player_id = $1;",
-            [playerid]
+            [req.params.playerid]
         );
-        res.json(allPlayers.rows);
+        console.log(allPlayers.rows)
+        res.json(allPlayers);
     } catch (error) {
         console.error(error.message);
     }
@@ -79,21 +99,6 @@ app.delete("/api/deletePlayer/:playerid", async (req, res) => {
 
         res.json({deleted_player: deletedPlayer.rows[0]});
 
-    } catch (error) {
-        console.error(error.message);
-    }
-});
-
-//login
-app.get("/api/login/:playerid/:pass", async (req, res) => {
-    try {
-        const { playerid, pass } = req.params;
-        const hashToMatch = await pool.query(
-            "SELECT password FROM player WHERE player_id=$1",
-            [playerid]
-        );
-        const isValid = await bcrypt.compare(pass, hashToMatch.rows[0].password);
-        res.json(isValid);
     } catch (error) {
         console.error(error.message);
     }
